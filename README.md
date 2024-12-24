@@ -26,26 +26,40 @@ This project implements a crypted IPFS vault using the **MERN** stack (MongoDB, 
 - **Blockchain**: Utilized for user authentication and storing file metadata securely on the blockchain.
 - **JWT (JSON Web Tokens)**: Used for user authentication and secure token-based sessions.
 
+
 ## Installation
 
 ### Setup Instructions
 
-1. **Clone the repository:**
+1. **Clone the Repository**:
    ```bash
    git clone https://github.com/yourusername/IPFSProVault.git
-   cd IPFSProVault
    ```
 
-2. **Install the dependencies:**
+2. **Navigate to Project Directory**:
+   ```bash
+   cd IPFSProVault
+   ```
+   
+3. **Install Dependencies**:
    ```bash
    npm install
    ```
 
-4. **Run the application:**
+4. **Deploy Smart Contracts using Remix IDE**:
+   - Open [Remix IDE](https://remix.ethereum.org/).
+   - Create a new Solidity contract or upload the existing smart contract file from this repository.
+   - Compile the smart contract using the Solidity compiler in Remix.
+   - Deploy the contract to a test network or Ethereum mainnet using Remix's "Deploy & Run Transactions" plugin, connected to your MetaMask wallet.
+
+5. **Run the Application**:
    ```bash
-   npm start
+   npm run start
    ```
 
-5. **Access the application**: 
-   Open `http://localhost:3000` in your browser to access the web application.
+6. **Connect with MetaMask**:
+   Ensure MetaMask is connected to your local blockchain or test network and that the account has sufficient tokens for voting.
+
+
+> Thank you for checking out my project! 
 
