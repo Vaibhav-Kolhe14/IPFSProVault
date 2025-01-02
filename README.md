@@ -33,7 +33,7 @@ This project implements a crypted IPFS vault using the **MERN** stack (MongoDB, 
 
 1. **Clone the Repository**:  
    ```bash  
-   git clone https://github.com/yourusername/IPFSProVault.git  
+   git clone https://github.com/Vaibhav-Kolhe14/IPFSProVault.git  
    ```  
 
 2. **Navigate to the Project Directory**:  
