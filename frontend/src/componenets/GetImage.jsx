@@ -22,29 +22,74 @@ function GetImage({reload}) {
         return ipfsHashes;
       }
     
+      // const getImage = async() => {
+      //   setLoading(true)
+      //   const ipfsHashes = await getImageHashes()
+      //   console.log("IPFS Hashes 2 :: ", ipfsHashes)
+      //   const ipfsHashArray = Object.values(ipfsHashes)
+      //   console.log("IPFS Hsh Array :: ", ipfsHashArray)
+    
+      //   const token = localStorage.getItem("token")
+      //   const config = {
+      //     headers: {
+      //       'x-access-token': token
+      //     }
+      //   }
+    
+      //   const res = await axios.post(`${import.meta.env.VITE_BACKEND_URL}/api/v1/get-image?page=${currentPage}&limit=${imagePerPage}`, ipfsHashArray, config)
+      //   console.log("res from get Image :: ", res.data)
+    
+      //   const imagesData = res.data.data.decryptedImageArray
+      //   console.log("Images Data :: ", imagesData)
+    
+      //   setImages(imagesData)
+      //   setLoading(false)
+      // } 
       const getImage = async() => {
         setLoading(true)
-        const ipfsHashes = await getImageHashes()
-        console.log("IPFS Hashes 2 :: ", ipfsHashes)
-        const ipfsHashArray = Object.values(ipfsHashes)
-        console.log("IPFS Hsh Array :: ", ipfsHashArray)
-    
-        const token = localStorage.getItem("token")
-        const config = {
-          headers: {
-            'x-access-token': token
+        try {
+          const ipfsHashes = await contractInstance.viewFiles(selectedAccount)
+          console.log("IPFS Hashes:", ipfsHashes)
+          
+          // Convert the result properly - Solidity returns may need special handling
+          const ipfsHashArray = []
+          if (ipfsHashes && ipfsHashes.length) {
+            for (let i = 0; i < ipfsHashes.length; i++) {
+              ipfsHashArray.push(ipfsHashes[i])
+            }
           }
+          
+          console.log("IPFS Hash Array:", ipfsHashArray)
+          
+          if (ipfsHashArray.length === 0) {
+            setImages([])
+            return
+          }
+      
+          const token = localStorage.getItem("token")
+          const res = await axios.post(
+            `${import.meta.env.VITE_BACKEND_URL}/api/v1/get-image`,
+            { 
+              hashes: ipfsHashArray,
+              page: currentPage,
+              limit: imagePerPage
+            },
+            {
+              headers: {
+                'x-access-token': token,
+                'Content-Type': 'application/json'
+              }
+            }
+          )
+      
+          setImages(res.data.data.decryptedImageArray)
+        } catch (error) {
+          console.error("Error:", error)
+          toast.error("Error fetching images")
+        } finally {
+          setLoading(false)
         }
-    
-        const res = await axios.post(`${import.meta.env.VITE_BACKEND_URL}/api/v1/get-image?page=${currentPage}&limit=${imagePerPage}`, ipfsHashArray, config)
-        console.log("res from get Image :: ", res.data)
-    
-        const imagesData = res.data.data.decryptedImageArray
-        console.log("Images Data :: ", imagesData)
-    
-        setImages(imagesData)
-        setLoading(false)
-      } 
+      }
   
       contractInstance && getImage()
     } catch (error) {

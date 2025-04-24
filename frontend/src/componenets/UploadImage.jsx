@@ -20,7 +20,6 @@ function UploadImage({reloadEffect}) {
       success: "Transaction is successful",
       error: "transaction is failed"
     })
-    console.log("Tx from upload image :: ")
   }
 
   const handleImageUpload = async () => {

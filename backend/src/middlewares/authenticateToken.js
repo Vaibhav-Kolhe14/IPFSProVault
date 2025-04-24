@@ -3,7 +3,7 @@ const jwt = require('jsonwebtoken')
 
 async function authenticateToken(req, res, next) {
     const token = req.headers['x-access-token']
-    console.log("\nReq.headers :: ", token)
+    // console.log("\nReq.headers :: ", token)
     if(!token) {
         throw new ApiError(400, "No token found !")
     }
