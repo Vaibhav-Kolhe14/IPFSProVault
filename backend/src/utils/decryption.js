@@ -2,9 +2,9 @@ const crypto = require('crypto');
 
 const decryptData = (encryptedData, iv, encryptionKey) => {
     try {
-        console.log("\nEncrypted Data Before Conversion:", encryptedData);
-        console.log("\nIV Before Conversion:", iv);
-        console.log("\nencyption key ", encryptionKey)
+        // console.log("\nEncrypted Data Before Conversion:", encryptedData);
+        // console.log("\nIV Before Conversion:", iv);
+        // console.log("\nencyption key ", encryptionKey)
 
         if (typeof iv === 'object' && iv.type === 'Buffer' && Array.isArray(iv.data)) {
             iv = Buffer.from(iv.data);

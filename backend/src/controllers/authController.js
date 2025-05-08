@@ -15,7 +15,7 @@ const authentication = asyncHandler(async (req, res) => {
         }
 
         const recoverAddress = ethers.utils.verifyMessage("Welcome to Crypto Vault Website", signature)
-        console.log("recoverAddress :: ", recoverAddress)
+        // console.log("recoverAddress :: ", recoverAddress)
 
         if(accountAddress.toLowerCase() !== recoverAddress.toLowerCase()) {
             throw new ApiError(400, "Authentication Failed !")
@@ -26,7 +26,7 @@ const authentication = asyncHandler(async (req, res) => {
 
         if(!user) {
            const userData = await User.create({userAddress: address})
-           console.log("User Data :: ", userData)
+        //    console.log("User Data :: ", userData)
         }
 
         const token = jwt.sign({

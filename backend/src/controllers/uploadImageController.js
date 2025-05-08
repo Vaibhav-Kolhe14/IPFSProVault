@@ -9,7 +9,7 @@ const pinataSDK = require('@pinata/sdk')
 
 const uploadImage = asyncHandler(async (req, res) => {
     try {
-        console.log("Req.file :: ",req.file)
+        // console.log("Req.file :: ",req.file)
 
         const address = req.address
         const userAddress = address.toLowerCase()

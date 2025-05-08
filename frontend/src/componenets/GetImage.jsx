@@ -68,12 +68,8 @@ function GetImage({reload}) {
       
           const token = localStorage.getItem("token")
           const res = await axios.post(
-            `${import.meta.env.VITE_BACKEND_URL}/api/v1/get-image`,
-            { 
-              hashes: ipfsHashArray,
-              page: currentPage,
-              limit: imagePerPage
-            },
+            `${import.meta.env.VITE_BACKEND_URL}/api/v1/get-image?page=${currentPage}&limit=${imagePerPage}`,
+            ipfsHashArray,
             {
               headers: {
                 'x-access-token': token,
@@ -81,7 +77,13 @@ function GetImage({reload}) {
               }
             }
           )
-      
+          
+          console.log("Decrypted Image Array:", res.data.data.decryptedImageArray)
+    console.log("Array Length:", res.data.data.decryptedImageArray.length)
+
+    console.log("IPFS Hash Array being sent:", ipfsHashArray);
+console.log("Page:", currentPage, "Limit:", imagePerPage);
+
           setImages(res.data.data.decryptedImageArray)
         } catch (error) {
           console.error("Error:", error)

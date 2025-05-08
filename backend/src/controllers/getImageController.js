@@ -77,7 +77,7 @@ const getImage = asyncHandler(async (req, res) => {
       }
   
       const {page = 1, limit = 2} = req.query
-      const {hashes} = req.body // Get hashes from request body
+      const hashes = req.body // Get hashes from request body
   
       const pageNumber = parseInt(page)
       const limitNumber = parseInt(limit)
@@ -85,11 +85,16 @@ const getImage = asyncHandler(async (req, res) => {
       if(!hashes || hashes.length === 0) {
         return res.status(200).json(new ApiResponse(200, {decryptedImageArray: []}, "No images found"))
       }
-  
+      console.log("Received Hashes:", hashes);
+console.log("Received Hash Count:", hashes.length);
+
       const startIndex = (pageNumber-1)*limitNumber
       const endIndex = pageNumber*limitNumber
       const ipfsHashArray = hashes.slice(startIndex, Math.min(hashes.length, endIndex))
-  
+      console.log("Start Index:", startIndex);
+console.log("End Index:", endIndex);
+console.log("Hashes to Process:", ipfsHashArray);
+
       const decryptedImageArray = []
       for(const ipfsHash of ipfsHashArray) {
         const response = await returnIpfsResponse(ipfsHash)
